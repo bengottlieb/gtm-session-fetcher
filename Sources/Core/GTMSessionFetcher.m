@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_END
 
 #if ((defined(TARGET_OS_MACCATALYST) && TARGET_OS_MACCATALYST) ||                                 \
      (TARGET_OS_OSX && defined(__MAC_10_15) && __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_15) || \
-     (TARGET_OS_IOS && defined(__IPHONE_13_0) &&                                                  \
+     ((TARGET_OS_IOS || TARGET_VISION_OS) && defined(__IPHONE_13_0) &&                                                  \
       __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_13_0) ||                                       \
      (TARGET_OS_WATCH && defined(__WATCHOS_6_0) &&                                                \
       __WATCH_OS_VERSION_MIN_REQUIRED >= __WATCHOS_6_0) ||                                        \
@@ -107,7 +107,7 @@ NS_ASSUME_NONNULL_END
 #define GTM_SDK_REQUIRES_TLSMINIMUMSUPPORTEDPROTOCOLVERSION 1
 #define GTM_SDK_SUPPORTS_TLSMINIMUMSUPPORTEDPROTOCOLVERSION 1
 #elif ((TARGET_OS_OSX && defined(__MAC_10_15) && __MAC_OS_X_VERSION_MAX_ALLOWED >= __MAC_10_15) || \
-       (TARGET_OS_IOS && defined(__IPHONE_13_0) &&                                                 \
+       ((TARGET_OS_IOS || TARGET_VISION_OS) && defined(__IPHONE_13_0) &&                                                 \
         __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_13_0) ||                                       \
        (TARGET_OS_WATCH && defined(__WATCHOS_6_0) &&                                               \
         __WATCH_OS_VERSION_MAX_ALLOWED >= __WATCHOS_6_0) ||                                        \
@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_END
 
 #if ((defined(TARGET_OS_MACCATALYST) && TARGET_OS_MACCATALYST) ||                                 \
      (TARGET_OS_OSX && defined(__MAC_10_15) && __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_15) || \
-     (TARGET_OS_IOS && defined(__IPHONE_13_0) &&                                                  \
+     ((TARGET_OS_IOS || TARGET_VISION_OS) && defined(__IPHONE_13_0) &&                                                  \
       __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_13_0) ||                                       \
      (TARGET_OS_WATCH && defined(__WATCHOS_6_0) &&                                                \
       __WATCH_OS_VERSION_MIN_REQUIRED >= __WATCHOS_6_0) ||                                        \
@@ -4692,7 +4692,7 @@ NSString *GTMFetcherSystemVersionString(void) {
     sSavedSystemString =
         [[NSString alloc] initWithFormat:@"%@/%@ hw/%@", model, systemVersion, hardwareModel];
     // Example:  Apple_Watch/3.0 hw/Watch1_2
-#elif TARGET_OS_TV || TARGET_OS_IOS
+#elif TARGET_OS_TV || TARGET_OS_IOS || TARGET_VISION_OS
     // iOS and tvOS have UIDevice, use that.
     UIDevice *currentDevice = [UIDevice currentDevice];
 
